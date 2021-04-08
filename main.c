@@ -4,7 +4,8 @@
          PUT n, GET n, LIST, FIRST, LAST, SORT, CLEAR, REMOVE n, EXIT
          and run functions over a linked list according to the user instruction.
   @author Leandro Daniel Huff
-  @date 2021/04/08 (AAAA/MM/DD) 
+  @project Developed and Tested on https://replit.com/@LeandroHuff/LinkedList
+  @date 2021/04/08 (AAAA/MM/DD)
   @file main.c
 */
 
@@ -198,6 +199,16 @@ void print_entry(char *entry)
   else if ( strncmp(entry, "list\n", 5) == 0 )
   {
     List(pLinkedList);
+  }
+  //FIRST
+  else if ( strncmp(entry, "first\n", 6) == 0 )
+  {
+    LinkedList_t *pItem = pLinkedList;
+
+    if (pItem != NULL)
+    {
+      printf("%d\n", pItem->data);
+    }
   }
   // LAST
   else if ( strncmp(entry, "last\n", 5) == 0 )
