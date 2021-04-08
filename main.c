@@ -48,7 +48,8 @@ LinkedList_t* Get(LinkedList_t*, int);
 void Sort(LinkedList_t *);
 void List(LinkedList_t *);
 LinkedList_t* Last(LinkedList_t *);
-void Clear(LinkedList_t **pFirst);
+void Remove(LinkedList_t **, int );
+void Clear(LinkedList_t **);
 void Free(LinkedList_t *);
 
 /****************************************************************************
@@ -110,6 +111,58 @@ LinkedList_t* Get(LinkedList_t *pFirst, int iItem)
 
   //Return nth item
   return item;
+}
+
+/**
+  * @brief Function to get the n-esimo item from the linked list starting from 1.
+  * @param pFirst Pointer address to the first item.
+  * @param int iItem nth item to be gettered.
+  * @return LinkedList_t* Item address from the linked list.
+  */
+void Remove(LinkedList_t **pFirst, int iItem)
+{
+  int iPos;
+  LinkedList_t *pItem = NULL;
+  LinkedList_t *pPrevious = NULL;
+
+  //Wrong parameter value.
+  if (iItem == 0)
+  {
+    return;
+  }
+    
+  for 
+  ( 
+    pItem = *pFirst, iPos = 1;            /* get first item address, load firs item index */
+    ((pItem != NULL) && (iPos < iItem)) ; /* not NULL and not reached the item            */
+    pItem = pItem->next, iPos++           /* go to next item, inc position/index counter  */
+  )
+  {
+    pPrevious = pItem; //store previous item address and run until reached the item.
+  }
+ 
+  //Found nth item
+  if ((pItem != NULL) && (iPos == iItem))
+  {
+    //Isn't it first on the list.
+    if (iPos > 1)
+    {
+      pPrevious->next = pItem->next;
+      printf("item:%d  value:%d  removed!\n", iPos, pItem->data);
+      free(pItem);
+    }
+    //Otherwise, remove the first one from the list.
+    else
+    {
+      LinkedList_t *pTemp = pItem;
+      *pFirst = pItem->next;
+      printf("item:%d  value:%d  removed!\n", iPos, pTemp->data);
+      free(pTemp);
+    }
+
+    //Show all linked list data.
+    List(*pFirst);
+  }
 }
 
 /**
@@ -266,6 +319,12 @@ void print_entry(char *entry)
   else if ( strncmp(entry, "sort\n", 5) == 0 )
   {
     Sort(pLinkedList);
+  }
+  // REMOVE n
+	if ( strncmp(entry, "remove ", 7) == 0 )
+  {
+    int item = atoi( &entry[7] );
+    Remove(&pLinkedList, item);
   }
   // CLEAR
   else if ( strncmp(entry, "clear\n", 6) == 0 )
