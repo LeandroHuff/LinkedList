@@ -44,6 +44,7 @@ void print_entry(char *);
 
 
 void Put(int);
+LinkedList_t* Get(LinkedList_t*, int);
 void Sort(LinkedList_t *);
 void List(LinkedList_t *);
 LinkedList_t* Last(LinkedList_t *);
@@ -79,6 +80,36 @@ void Put(int iValue)
 
   //Store data value.
   item->data = iValue;
+}
+
+/**
+  * @brief Function to get the n-esimo item from the linked list starting from 1.
+  * @param pFirst Pointer address to the first item.
+  * @param int iItem nth item to be gettered.
+  * @return LinkedList_t* Item address from the linked list.
+  */
+LinkedList_t* Get(LinkedList_t *pFirst, int iItem)
+{
+  int iPos;
+  LinkedList_t *item = NULL;
+
+  if (iItem == 0)
+  {
+    return item;
+  }
+    
+  for 
+  ( 
+    item = pFirst, iPos = 1;             /* get first item address, load firs item index */
+    ((item != NULL) && (iPos < iItem)) ; /* not NULL and not reached the item            */
+    item = item->next, iPos++            /* go to next item, inc position/index counter  */
+  )
+  {
+    ; //just run until reached the item.
+  }
+
+  //Return nth item
+  return item;
 }
 
 /**
@@ -189,11 +220,22 @@ void Free(LinkedList_t *pFirst)
  */
 void print_entry(char *entry) 
 {
-  // PUT
+  // PUT n
 	if ( strncmp(entry, "put ", 4) == 0 )
   {
     int value = atoi( &entry[4] );
     Put(value);
+  }
+  // GET n
+	if ( strncmp(entry, "get ", 4) == 0 )
+  {
+    int iItem = atoi( &entry[4] );
+    LinkedList_t *pItem = Get(pLinkedList, iItem);
+
+    if (pItem != NULL)
+    {
+      printf("%d\n", pItem->data);
+    }
   }
   // LIST
   else if ( strncmp(entry, "list\n", 5) == 0 )
