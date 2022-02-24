@@ -20,7 +20,7 @@ CLEAR - Clear all allocation memory and start a empty linked list.
 
 REMOVE n - Remove nth data item from linked list.
 
-EXIT - Exit from program execution but before make a cleanup of all allocation memory.
+EXIT - Exit from program execution after make a cleanup of all allocation memory.
 
 
 Source code are also stored on ReplIt for development, run and tests, it was develped at https://replit.com/@LeandroHuff/LinkedList
